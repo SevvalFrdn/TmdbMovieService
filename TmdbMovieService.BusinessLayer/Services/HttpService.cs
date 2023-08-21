@@ -48,7 +48,7 @@ namespace TmdbMovieService.BusinessLayer.Services
             return stringResult;
         }
 
-        public async Task<string> PostAsync(string url, object requestBody, IDictionary<string, IEnumerable<string>> customHeaders = null)
+        public async Task<string> PostAsync(string url, object requestBody)
         {
             using var client = new HttpClient();
 
@@ -61,14 +61,6 @@ namespace TmdbMovieService.BusinessLayer.Services
             client.DefaultRequestHeaders.AcceptEncoding.Add(new System.Net.Http.Headers.StringWithQualityHeaderValue("deflate"));
 
             client.DefaultRequestHeaders.Connection.Add("keep-alive");
-
-            if (customHeaders is not null)
-            {
-                foreach (var header in customHeaders)
-                {
-                    client.DefaultRequestHeaders.Add(header.Key, header.Value);
-                }
-            }
 
             var data = JsonConvert.SerializeObject(requestBody, Formatting.Indented);
 

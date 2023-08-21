@@ -8,8 +8,7 @@ namespace TmdbMovieService.BusinessLayer.Services.IServices
 {
     public interface IHttpService
     {
-        public Task<string> PostAsync(string url, object requestBody
-           , IDictionary<string, IEnumerable<string>> customHeaders = null);
+        public Task<string> PostAsync(string url, object requestBody);
 
         public Task<string> GetAsync(string url);
     }

@@ -28,17 +28,17 @@ namespace TmdbMovie.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("adult")
+                    b.Property<bool?>("adult")
                         .HasColumnType("bit");
 
                     b.Property<string>("backdrop_path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("genre_ids")
+                    b.Property<int?>("genre_ids")
                         .HasColumnType("int");
 
-                    b.Property<int>("id")
+                    b.Property<int?>("id")
                         .HasColumnType("int");
 
                     b.Property<string>("original_language")
@@ -53,7 +53,7 @@ namespace TmdbMovie.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("popularity")
+                    b.Property<float?>("popularity")
                         .HasColumnType("real");
 
                     b.Property<string>("poster_path")
@@ -68,13 +68,13 @@ namespace TmdbMovie.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("video")
+                    b.Property<bool?>("video")
                         .HasColumnType("bit");
 
-                    b.Property<float>("vote_average")
+                    b.Property<float?>("vote_average")
                         .HasColumnType("real");
 
-                    b.Property<int>("vote_count")
+                    b.Property<int?>("vote_count")
                         .HasColumnType("int");
 
                     b.HasKey("RowId");

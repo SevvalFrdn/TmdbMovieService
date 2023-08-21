@@ -32,66 +32,62 @@ namespace TmdbMovieService.BusinessLayer.Services
 
         public async Task GetMovies()
         {
-            int page = 1;
-
-            string url = TmdbConstants.BaseURL + $"/movie/popular?api_key={TmdbConstants.ApiKey}&page={page}";
-
-            var response = await _httpService.GetAsync(url);
-
-            var movies = JsonConvert.DeserializeObject<MovieDTO>(response);
-
-            Pages.page = movies.total_pages;
-
-            foreach (var item in movies.results)
+            try
             {
-                var moviesID = _appDbContext.Movies.FirstOrDefault(x => x.id == item.id);
-
-                if (moviesID is not null)
+                _logger.LogInformation($"{nameof(GetMovies)} was started");
+                for (int i = 1; i <= 500; i++)
                 {
-                    var movieDTO = _mapper.Map<Movie>(moviesID);
+                    string url = TmdbConstants.BaseURL + $"/movie/popular?api_key={TmdbConstants.ApiKey}&page={i}";
 
-                    _appDbContext.Movies.Update(movieDTO);
-                }
-                else
-                {
-                    var movieDTO = _mapper.Map<Movie>(item);
+                    var response = await _httpService.GetAsync(url);
 
-                    movieDTO.RowId = Guid.NewGuid();
+                    var movies = JsonConvert.DeserializeObject<MovieDTO>(response);
 
-                    await _appDbContext.Movies.AddAsync(movieDTO);
-                }
-            }
+                    Pages.page = movies.total_pages;
 
-            for (int i = 2; i < Pages.page; i++)
-            {
-                string url1 = TmdbConstants.BaseURL + $"/movie/popular?api_key={TmdbConstants.ApiKey}&page={i}";
-
-                var response1 = await _httpService.GetAsync(url1);
-
-                var movies1 = JsonConvert.DeserializeObject<MovieDTO>(response1);
-
-                foreach (var item1 in movies1.results)
-                {
-                    var moviesID1 = _appDbContext.Movies.FirstOrDefault(x => x.id == item1.id);
-
-                    if (moviesID1 is not null)
+                    foreach (var item in movies.results)
                     {
-                        var movieDTO1 = _mapper.Map<Movie>(moviesID1);
+                        var moviesID = _appDbContext.Movies.FirstOrDefault(x => x.id == item.id);
 
-                        _appDbContext.Movies.Update(movieDTO1);
-                    }
-                    else
-                    {
-                        var movieDTO1 = _mapper.Map<Movie>(item1);
+                        _ = CheckifNullProperty(item);
 
-                        movieDTO1.RowId = Guid.NewGuid();
+                        if (moviesID is not null)
+                        {
+                            var movieDTO = _mapper.Map<Movie>(moviesID);
 
-                        await _appDbContext.Movies.AddAsync(movieDTO1); 
+                            _appDbContext.Movies.Update(movieDTO);
+                        }
+                        else
+                        {
+                            var movieDTO = _mapper.Map<Movie>(item);
+
+                            movieDTO.RowId = Guid.NewGuid();
+
+                            await _appDbContext.Movies.AddAsync(movieDTO);
+                        }
                     }
                 }
-            }
 
-            await _appDbContext.SaveChangesAsync();
+                await _appDbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, LogLevel.Error, $"{nameof(GetMovies)} is error");
+                throw;
+            }
+        }
+
+        public MovieDTO.Result CheckifNullProperty(MovieDTO.Result movie)
+        {
+            movie.backdrop_path = movie.backdrop_path ?? string.Empty;
+            movie.release_date = movie.release_date ?? string.Empty;
+            movie.genre_id = movie.genre_id ?? 0;
+            movie.original_language = movie.original_language ?? string.Empty;
+            movie.original_title = movie.original_title ?? string.Empty;
+            movie.overview = movie.overview ?? string.Empty;
+            movie.poster_path = movie.poster_path ?? string.Empty;
+            movie.title = movie.title ?? string.Empty;
+            return movie;
         }
     }
 }

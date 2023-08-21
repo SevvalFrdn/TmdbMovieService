@@ -13,9 +13,8 @@ namespace TmdbMovieService.BusinessLayer.Mapping
     {
         public MoviesMapping()
         {
-            //CreateMap<MovieDTO, Movie>()
-            //    .ReverseMap();
             CreateMap<MovieDTO.Result, Movie>()
+                .ForMember(i => i.genre_ids, opt => opt.MapFrom(i => i.genre_id))
                 .ReverseMap();
         }
 

@@ -5,11 +5,13 @@ VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TmdbMovieService", "TmdbMovieService\TmdbMovieService.csproj", "{7B5EE1D3-CECD-4559-A9E5-F3072AD2BDA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TmdbMovieService.BusinessLayer", "TmdbMovieService.BusinessLayer\TmdbMovieService.BusinessLayer.csproj", "{3131988E-A2F2-419F-A63F-3F09C9BC72D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TmdbMovieService.BusinessLayer", "TmdbMovieService.BusinessLayer\TmdbMovieService.BusinessLayer.csproj", "{3131988E-A2F2-419F-A63F-3F09C9BC72D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TmdbMovieService.EntityLayer", "TmdbMovieService.EntityLayer\TmdbMovieService.EntityLayer.csproj", "{5263D656-93FC-47A1-BD1A-D808AA88CE9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TmdbMovieService.EntityLayer", "TmdbMovieService.EntityLayer\TmdbMovieService.EntityLayer.csproj", "{5263D656-93FC-47A1-BD1A-D808AA88CE9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TmdbMovie.DataAccessLayer", "TmdbMovie.DataAccessLayer\TmdbMovie.DataAccessLayer.csproj", "{5FA508C2-EF61-48D2-A351-C271F38F0986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TmdbMovie.DataAccessLayer", "TmdbMovie.DataAccessLayer\TmdbMovie.DataAccessLayer.csproj", "{5FA508C2-EF61-48D2-A351-C271F38F0986}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TmdbMovie.BackgroundService", "TmdbMovie.BackgroundService\TmdbMovie.BackgroundService.csproj", "{59CDE79F-969D-4EF3-8A72-78DDB8289298}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5FA508C2-EF61-48D2-A351-C271F38F0986}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FA508C2-EF61-48D2-A351-C271F38F0986}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FA508C2-EF61-48D2-A351-C271F38F0986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CDE79F-969D-4EF3-8A72-78DDB8289298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CDE79F-969D-4EF3-8A72-78DDB8289298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CDE79F-969D-4EF3-8A72-78DDB8289298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CDE79F-969D-4EF3-8A72-78DDB8289298}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

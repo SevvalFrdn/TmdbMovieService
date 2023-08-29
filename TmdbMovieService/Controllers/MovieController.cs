@@ -6,6 +6,8 @@ using TmdbMovieService.BusinessLayer.Services;
 
 namespace TmdbMovieService.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;

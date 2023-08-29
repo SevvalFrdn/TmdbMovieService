@@ -10,8 +10,6 @@ using TmdbMovieService.BusinessLayer.Services.IServices;
 
 namespace TmdbMovieService.BusinessLayer.Services
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class HttpService : IHttpService
     {
         public ILogger<HttpService> _logger { get; set; }

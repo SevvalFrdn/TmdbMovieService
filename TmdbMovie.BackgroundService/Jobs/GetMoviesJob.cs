@@ -8,15 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TmdbMovieService.BusinessLayer.Constants.Hangfire;
 using TmdbMovieService.BusinessLayer.Services;
+using TmdbMovieService.BusinessLayer.Services.IServices;
 
 namespace TmdbMovie.BackgroundService.Jobs
 {
     public class GetMoviesJob
     {
         private readonly ILogger<GetMoviesJob> _logger;
-        private readonly MovieService _movieService;
+        private readonly IMovieService _movieService;
 
-        public GetMoviesJob(ILogger<GetMoviesJob> logger, MovieService movieService)
+        public GetMoviesJob(ILogger<GetMoviesJob> logger, IMovieService movieService)
         {
             _logger = logger;
             _movieService = movieService;

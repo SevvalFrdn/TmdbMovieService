@@ -73,6 +73,7 @@ app.UseHangfireDashboard();
 
 app.MapHangfireDashboard();
 
+JobRegistration.StartJobs();
+
 app.Run();
 
-JobRegistration.StartJobs();

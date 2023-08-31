@@ -10,6 +10,7 @@ namespace TmdbMovieService.BusinessLayer.Constants.Hangfire
     {
         public const string Every_Minute = "* * * * *";
         public const string Every_23_30 = "30 23 * * *";
-        public const string hour = "30 23 * * *";
+        public const string hour = "08 17 * * *";
+        public const string Every_Hour = "0 * * * *";
     }
 }

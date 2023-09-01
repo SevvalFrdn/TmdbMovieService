@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TmdbMovie.DataAccessLayer.Context;
 using TmdbMovieService.BusinessLayer.Services.IServices;
 using TmdbMovieService.BusinessLayer.Services;
+using TmdbMovie.DataAccessLayer.DTO_s;
 
 namespace TmdbMovieService.Controllers
 {
@@ -23,10 +24,11 @@ namespace TmdbMovieService.Controllers
             _appDbContext = appDbContext;
         }
         [HttpGet("GetPopular")]
-        public async Task<IActionResult> GetMovies()
+        public async Task<MovieDTO> GetMovies()
         {
-            await _movieService.GetMovies();
-            return Ok();
+            var MoviesPages1 = await _movieService.GetMovies(1);
+
+            return MoviesPages1;
         }
     }
 }

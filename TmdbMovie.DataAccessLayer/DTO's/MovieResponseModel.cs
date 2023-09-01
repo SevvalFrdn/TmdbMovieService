@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TmdbMovieService.BusinessLayer.Models
+namespace TmdbMovie.DataAccessLayer.Models
 {
     public class MovieResponseModel
     {

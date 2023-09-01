@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TmdbMovie.DataAccessLayer.Context;
 using TmdbMovie.DataAccessLayer.DTO_s;
+using TmdbMovie.DataAccessLayer.Models;
 using TmdbMovieService.BusinessLayer.Constants;
 using TmdbMovieService.BusinessLayer.Models;
 using TmdbMovieService.BusinessLayer.Services.IServices;
@@ -30,45 +31,45 @@ namespace TmdbMovieService.BusinessLayer.Services
             _appDbContext = appDbContext;
         }
 
-        public async Task GetMovies()
+        public async Task<MovieDTO> GetMovies(int pages)
         {
             try
             {
                 _logger.LogInformation($"{nameof(GetMovies)} was started");
-                for (int i = 1; i <= 500; i++)
+
+                string url = TmdbConstants.BaseURL + $"/movie/popular?api_key={TmdbConstants.ApiKey}&page={pages}";
+
+                var response = await _httpService.GetAsync(url);
+
+                var movies = JsonConvert.DeserializeObject<MovieDTO>(response);
+
+                Pages.page = movies.total_pages;
+
+                foreach (var item in movies.results)
                 {
-                    string url = TmdbConstants.BaseURL + $"/movie/popular?api_key={TmdbConstants.ApiKey}&page={i}";
+                    var moviesID = _appDbContext.Movies.FirstOrDefault(x => x.id == item.id);
 
-                    var response = await _httpService.GetAsync(url);
+                    _ = CheckifNullProperty(item);
 
-                    var movies = JsonConvert.DeserializeObject<MovieDTO>(response);
-
-                    Pages.page = movies.total_pages;
-
-                    foreach (var item in movies.results)
+                    if (moviesID is not null)
                     {
-                        var moviesID = _appDbContext.Movies.FirstOrDefault(x => x.id == item.id);
+                        var movieDTO = _mapper.Map<Movie>(moviesID);
 
-                        _ = CheckifNullProperty(item);
+                        _appDbContext.Movies.Update(movieDTO);
+                    }
+                    else
+                    {
+                        var movieDTO = _mapper.Map<Movie>(item);
 
-                        if (moviesID is not null)
-                        {
-                            var movieDTO = _mapper.Map<Movie>(moviesID);
+                        movieDTO.RowId = Guid.NewGuid();
 
-                            _appDbContext.Movies.Update(movieDTO);
-                        }
-                        else
-                        {
-                            var movieDTO = _mapper.Map<Movie>(item);
-
-                            movieDTO.RowId = Guid.NewGuid();
-
-                            await _appDbContext.Movies.AddAsync(movieDTO);
-                        }
+                        await _appDbContext.Movies.AddAsync(movieDTO);
                     }
                 }
 
                 await _appDbContext.SaveChangesAsync();
+
+                return movies;
             }
             catch (Exception ex)
             {

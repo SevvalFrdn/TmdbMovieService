@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TmdbMovie.DataAccessLayer.DTO_s;
+using TmdbMovie.DataAccessLayer.Models;
 using TmdbMovieService.EntityLayer.Models;
 
 namespace TmdbMovieService.BusinessLayer.Mapping
@@ -15,6 +16,8 @@ namespace TmdbMovieService.BusinessLayer.Mapping
         {
             CreateMap<MovieDTO.Result, Movie>()
                 .ForMember(i => i.genre_ids, opt => opt.MapFrom(i => i.genre_id))
+                .ReverseMap();
+            CreateMap<MovieResponseModel.Result, Movie>()
                 .ReverseMap();
         }
 

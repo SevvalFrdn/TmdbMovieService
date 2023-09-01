@@ -33,7 +33,10 @@ namespace TmdbMovie.BackgroundService.Jobs
         [AutomaticRetry(Attempts = 5)]
         public void Get()
         {
-            _movieService.GetMovies().GetAwaiter().GetResult();
+            for (int i = 1; i <= 500; i++)
+            {
+                _movieService.GetMovies(i).GetAwaiter().GetResult();
+            }
         }
 
     }

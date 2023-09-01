@@ -21,6 +21,8 @@ namespace TmdbMovieService.BusinessLayer
 
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(typeof(ServiceRegistiration));
 
         }

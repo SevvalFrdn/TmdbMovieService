@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TmdbMovie.DataAccessLayer.DTO_s;
-using TmdbMovie.DataAccessLayer.Models;
-using TmdbMovieService.BusinessLayer.Models;
 
 namespace TmdbMovieService.BusinessLayer.Services.IServices
 {
-    public interface IMovieService
+    public interface IAuthService
     {
-        Task<MovieDTO> GetMovies(int pages);
+        Task<UserLoginResponse> LoginUserAsync(UserLoginRequest request);
     }
 }

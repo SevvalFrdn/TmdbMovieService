@@ -24,7 +24,7 @@ namespace TmdbMovieService.BusinessLayer.Services
         {
             SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["AppSettings:Secret"]));
 
-            var dateTimeNow = DateTime.UtcNow;
+            var dateTimeNow = DateTime.Now;
 
             JwtSecurityToken jwt = new JwtSecurityToken(
                     issuer: _configuration["AppSettings:ValidIssuer"],
